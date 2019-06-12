@@ -94,7 +94,7 @@ class AndroidXmlParser(
 
         val name = attributes.getNamedItem("name").textContent
 
-        val localizedValues = TreeMap<PluralResource.Quantity, Map<Language, LocalizedValue>>()
+        val localizedValues = mutableMapOf<Language, SortedMap<PluralResource.Quantity, LocalizedValue>>()
         for (i in 0 until node.childNodes.length) {
             val itemNode = node.childNodes.item(i)
 
@@ -103,10 +103,10 @@ class AndroidXmlParser(
                     parsePluralQuantity(textContent)
                 } ?: continue
 
-                val value = mapOf(
-                    language to LocalizedValue(language, itemNode.textContent)
-                )
-                localizedValues[quantity] = value
+                val value = TreeMap<PluralResource.Quantity, LocalizedValue>().apply {
+                    put(quantity, LocalizedValue(language, itemNode.textContent))
+                }
+                localizedValues[language] = value
             }
         }
 

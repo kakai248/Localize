@@ -1,3 +1,5 @@
 package diff
 
-class DiffResolution
+data class DiffResolution(
+    val strategies: Map<Diff, DiffStrategy<Diff>>
+)

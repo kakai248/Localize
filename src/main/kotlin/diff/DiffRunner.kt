@@ -1,5 +1,6 @@
 package diff
 
+import exceptions.MissingDiffStrategyException
 import models.ImportedTranslation
 import models.Translation
 
@@ -8,7 +9,12 @@ object DiffRunner {
         return DiffResult(current, submitted, emptyList())
     }
 
-    fun submit(diffResult: DiffResult, diffResolution: DiffResolution): List<Translation> {
-        return emptyList()
+    fun submit(result: DiffResult, resolution: DiffResolution): List<Translation> {
+        val newTranslations = result.current.toMutableList()
+        result.diffs.forEach { diff ->
+            val strategy = resolution.strategies[diff] ?: throw MissingDiffStrategyException(diff)
+            strategy.apply(newTranslations, diff)
+        }
+        return newTranslations
     }
 }

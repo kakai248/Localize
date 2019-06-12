@@ -13,7 +13,7 @@ class DiffRunnerTest {
         return listOf(
             Translation(
                 key = "key_1",
-                resources = mapOf(
+                platformResources = mapOf(
                     Platform.Android to StringResource(
                         identifier = "android_string_1",
                         localizedValues = mapOf(

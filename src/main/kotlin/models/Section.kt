@@ -1,5 +1,5 @@
 package models
 
-class Section(
+data class Section(
     val name: String
 )

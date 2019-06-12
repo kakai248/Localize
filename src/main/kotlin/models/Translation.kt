@@ -1,6 +1,6 @@
 package models
 
-class Translation(
+data class Translation(
     val key: String,
     val resources: Map<Platform, Resource>,
     val module: Module? = null,
